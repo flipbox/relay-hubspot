@@ -19,8 +19,7 @@ class UpdateByEmail extends AbstractContact
         RequestInterface $request,
         ResponseInterface $response,
         callable $next = null
-    )
-    {
+    ) {
         // Prepare request
         $request = $this->prepareUri(
             $request->withMethod('POST')

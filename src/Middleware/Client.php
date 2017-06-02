@@ -29,7 +29,6 @@ class Client extends AbstractMiddleware
      */
     public function __invoke(RequestInterface $request, ResponseInterface $response, callable $next = null)
     {
-
         // Prepare request
         $request = $this->prepRequest($request);
 
@@ -40,7 +39,6 @@ class Client extends AbstractMiddleware
         $response = $next($request, $response);
 
         return $response;
-
     }
 
     /**
@@ -54,29 +52,21 @@ class Client extends AbstractMiddleware
     {
 
         try {
-
             // todo is there a way to append to an existing guzzle response?
-
             $client = new GuzzleHttpClient();
-
             $httpResponse = $client->send($request);
-
         } catch (ClientException $e) {
-
             $this->error(
                 "API Exception",
                 [
                     'exception' => $e
                 ]
             );
-
             $httpResponse = $e->getResponse();
-
         }
 
         // Sync responses
         return $this->syncResponse($httpResponse, $response);
-
     }
 
     /**

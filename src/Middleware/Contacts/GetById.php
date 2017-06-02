@@ -19,8 +19,7 @@ class GetById extends AbstractContact
         RequestInterface $request,
         ResponseInterface $response,
         callable $next = null
-    )
-    {
+    ) {
         // Prepare request
         $request = $this->prepareUri(
             $request->withMethod('GET')
@@ -37,4 +36,3 @@ class GetById extends AbstractContact
         return "contact/vid/{$this->id}/profile";
     }
 }
-

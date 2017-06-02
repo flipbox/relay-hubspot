@@ -43,5 +43,4 @@ class GetById extends AbstractSegment
             ]
         ];
     }
-
 }
