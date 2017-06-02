@@ -1,6 +1,6 @@
 <?php
 
-namespace Flipbox\Relay\Hubspot\Middleware\Authorization;
+namespace Flipbox\Relay\HubSpot\Middleware\Authorization;
 
 use Relay\MiddlewareInterface;
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace Flipbox\Relay\Hubspot\Segment\Contacts;
+namespace Flipbox\Relay\HubSpot\Segment\Contacts;
 
 use Flipbox\Cache\Middleware\Cache as CacheMiddleware;
-use Flipbox\Relay\Hubspot\Middleware\Contacts\GetById as ContactByIdMiddleware;
-use Flipbox\Relay\Hubspot\Middleware\Client;
+use Flipbox\Relay\HubSpot\Middleware\Contacts\GetById as ContactByIdMiddleware;
+use Flipbox\Relay\HubSpot\Middleware\Client;
 use Flipbox\Relay\Segments\AbstractSegment;
 use Psr\Cache\CacheItemPoolInterface;
 

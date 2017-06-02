@@ -12,7 +12,7 @@
  * @since      Class available since Release 1.0.0
  */
 
-namespace Flipbox\Relay\Hubspot\Middleware\Authorization;
+namespace Flipbox\Relay\HubSpot\Middleware\Authorization;
 
 use Flipbox\Relay\Middleware\AbstractMiddleware;
 use Psr\Http\Message\RequestInterface;

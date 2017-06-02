@@ -1,6 +1,6 @@
 <?php
 
-namespace Flipbox\Relay\Hubspot\Middleware;
+namespace Flipbox\Relay\HubSpot\Middleware;
 
 use Psr\Http\Message\RequestInterface;
 

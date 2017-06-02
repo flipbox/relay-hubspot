@@ -1,9 +1,9 @@
 <?php
 
-namespace Flipbox\Relay\Hubspot\Middleware\Contacts;
+namespace Flipbox\Relay\HubSpot\Middleware\Contacts;
 
-use Flipbox\Relay\Hubspot\Middleware\AbstractMiddleware;
-use Flipbox\Relay\Hubspot\Middleware\V1Trait;
+use Flipbox\Relay\HubSpot\Middleware\AbstractMiddleware;
+use Flipbox\Relay\HubSpot\Middleware\V1Trait;
 
 abstract class AbstractContact extends AbstractMiddleware
 {

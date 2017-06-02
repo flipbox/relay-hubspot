@@ -12,7 +12,7 @@
  * @since      Class available since Release 1.0.0
  */
 
-namespace Flipbox\Relay\Hubspot\Middleware;
+namespace Flipbox\Relay\HubSpot\Middleware;
 
 use Flipbox\Relay\Middleware\AbstractMiddleware;
 use GuzzleHttp\Client as GuzzleHttpClient;
