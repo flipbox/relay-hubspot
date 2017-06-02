@@ -1,0 +1,52 @@
+{
+  "name": "flipboxdigital/relay-hubspot",
+  "description": "Relay",
+  "version": "1.0.0",
+  "keywords": [
+    "relay",
+    "flipbox",
+    "psr-7",
+    "hubspot"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Flipbox Factory",
+      "email": "hello@flipboxfactory.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0",
+    "flipboxdigital/cache": "^2.0",
+    "flipboxdigital/relay": "^2.0.1",
+    "guzzlehttp/guzzle":"~6.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.0",
+    "squizlabs/php_codesniffer": "^2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Flipbox\\Relay\\HubSpot\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Flipbox\\Relay\\HubSpot\\Tests\\": "tests/src/"
+    }
+  },
+  "config": {
+    "optimize-autoloader": true
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packagist.org"
+    }
+  ]
+}
