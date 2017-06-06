@@ -3,18 +3,18 @@
 namespace Flipbox\Relay\HubSpot\Segment\Contacts;
 
 use Flipbox\Relay\Middleware\Stash as CacheMiddleware;
-use Flipbox\Relay\HubSpot\Middleware\Contacts\GetById as ContactByIdMiddleware;
+use Flipbox\Relay\HubSpot\Middleware\Contacts\GetByEmail as ContactByEmailMiddleware;
 use Flipbox\Relay\HubSpot\Middleware\Client;
 use Flipbox\Relay\Segments\AbstractSegment;
 use Psr\Cache\CacheItemPoolInterface;
 
-class GetById extends AbstractSegment
+class GetByEmail extends AbstractSegment
 {
 
     /**
-     * @var int
+     * @var string
      */
-    public $id;
+    public $email;
 
     /**
      * @var CacheItemPoolInterface
@@ -28,8 +28,8 @@ class GetById extends AbstractSegment
     {
         return [
             'uri' => [
-                'class' => ContactByIdMiddleware::class,
-                'id' => $this->id,
+                'class' => ContactByEmailMiddleware::class,
+                'id' => $this->email,
                 'logger' => $this->getLogger()
             ],
             'cache' => [
