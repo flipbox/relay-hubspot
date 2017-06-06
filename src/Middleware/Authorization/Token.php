@@ -6,13 +6,13 @@ use Flipbox\Relay\Middleware\AbstractMiddleware;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class Key extends AbstractMiddleware
+class Token extends AbstractMiddleware
 {
 
     /**
-     * @var string
+     * @var string|\League\OAuth2\Client\Token\AccessToken
      */
-    public $key;
+    public $token;
 
     /**
      * @inheritdoc
@@ -28,24 +28,9 @@ class Key extends AbstractMiddleware
      */
     private function prepRequest(RequestInterface $request)
     {
-        // Requested URI
-        $uri = $request->getUri();
-
-        // Get Query
-        $query = $uri->getQuery();
-
-        // Append to?
-        if (!empty($query)) {
-            $query .= '&';
-        }
-
-        // Add our key
-        $query .= http_build_query([
-            'hapikey' => $this->key
-        ]);
-
-        return $request->withUri(
-            $uri->withQuery($query)
+        return $request->withHeader(
+            "Authorization",
+            sprintf("Bearer %s", $this->token)
         );
     }
 }
