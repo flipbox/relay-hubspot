@@ -2,8 +2,9 @@
 
 namespace Flipbox\Relay\HubSpot\Segment\Contacts;
 
-use Flipbox\Relay\HubSpot\Middleware\Contacts\UpdateByEmail as ContactUpdateByEmailMiddleware;
 use Flipbox\Relay\HubSpot\Middleware\Client;
+use Flipbox\Relay\HubSpot\Middleware\Contacts\UpdateByEmail as ContactUpdateByEmailMiddleware;
+use Flipbox\Relay\HubSpot\Middleware\JsonRequest as JsonRequestMiddleware;
 use Flipbox\Relay\Segments\AbstractSegment;
 
 class UpdateByEmail extends AbstractSegment
@@ -24,10 +25,14 @@ class UpdateByEmail extends AbstractSegment
     protected function defaultSegments(): array
     {
         return [
+            'body' => [
+                'class' => JsonRequestMiddleware::class,
+                'payload' => $this->properties,
+                'logger' => $this->getLogger()
+            ],
             'uri' => [
                 'class' => ContactUpdateByEmailMiddleware::class,
                 'email' => $this->email,
-                'properties' => $this->properties,
                 'logger' => $this->getLogger()
             ],
             'client' => [
