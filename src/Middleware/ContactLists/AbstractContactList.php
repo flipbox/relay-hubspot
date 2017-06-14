@@ -1,14 +1,14 @@
 <?php
 
-namespace Flipbox\Relay\HubSpot\Middleware\Companies;
+namespace Flipbox\Relay\HubSpot\Middleware\ContactLists;
 
 use Flipbox\Relay\HubSpot\Middleware\AbstractMiddleware;
-use Flipbox\Relay\HubSpot\Middleware\V2Trait;
+use Flipbox\Relay\HubSpot\Middleware\V1Trait;
 
-abstract class AbstractCompany extends AbstractMiddleware
+abstract class AbstractContactList extends AbstractMiddleware
 {
 
-    use V2Trait;
+    use V1Trait;
 
     /**
      * The resource name
