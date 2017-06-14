@@ -17,6 +17,7 @@
   ],
   "require": {
     "php": ">=7.0",
+    "flipboxdigital/relay": "^2.0",
     "flipboxdigital/relay-stash": "^1.0",
     "guzzlehttp/guzzle":"~6.0"
   },
