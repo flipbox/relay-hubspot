@@ -7,6 +7,7 @@ use Flipbox\Relay\HubSpot\Middleware\ContactLists\Remove as ContactListRemoveMid
 use Flipbox\Relay\Middleware\Stash as CacheMiddleware;
 use Flipbox\Relay\Segments\AbstractSegment;
 use Psr\Cache\CacheItemPoolInterface;
+use Flipbox\Relay\HubSpot\Middleware\JsonRequest as JsonRequestMiddleware;
 
 class Remove extends AbstractSegment
 {
@@ -14,6 +15,16 @@ class Remove extends AbstractSegment
      * @var int
      */
     public $id;
+
+    /**
+     * @var array
+     */
+    public $contactIds = [];
+
+    /**
+     * @var array
+     */
+    public $emails = [];
 
     /**
      * @var CacheItemPoolInterface
@@ -26,6 +37,11 @@ class Remove extends AbstractSegment
     protected function defaultSegments(): array
     {
         return [
+            'body' => [
+                'class' => JsonRequestMiddleware::class,
+                'payload' => $this->assemblePayload(),
+                'logger' => $this->getLogger()
+            ],
             'uri' => [
                 'class' => ContactListRemoveMiddleware::class,
                 'id' => $this->id,
@@ -40,6 +56,17 @@ class Remove extends AbstractSegment
                 'class' => Client::class,
                 'logger' => $this->getLogger()
             ]
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function assemblePayload(): array
+    {
+        return [
+            'vids' => array_filter($this->contactIds),
+            'emails' => array_filter($this->emails)
         ];
     }
 }

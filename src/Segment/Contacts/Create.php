@@ -4,6 +4,7 @@ namespace Flipbox\Relay\HubSpot\Segment\Contacts;
 
 use Flipbox\Relay\HubSpot\Middleware\Contacts\Create as ContactCreateMiddleware;
 use Flipbox\Relay\HubSpot\Middleware\Client;
+use Flipbox\Relay\HubSpot\Middleware\JsonRequest as JsonRequestMiddleware;
 use Flipbox\Relay\Segments\AbstractSegment;
 
 class Create extends AbstractSegment
@@ -20,6 +21,11 @@ class Create extends AbstractSegment
     protected function defaultSegments(): array
     {
         return [
+            'body' => [
+                'class' => JsonRequestMiddleware::class,
+                'payload' => $this->properties,
+                'logger' => $this->getLogger()
+            ],
             'uri' => [
                 'class' => ContactCreateMiddleware::class,
                 'properties' => $this->properties,

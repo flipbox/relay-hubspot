@@ -5,6 +5,7 @@ namespace Flipbox\Relay\HubSpot\Segment\Companies;
 use Flipbox\Relay\HubSpot\Middleware\Companies\Create as CompanyCreateMiddleware;
 use Flipbox\Relay\HubSpot\Middleware\Client;
 use Flipbox\Relay\Segments\AbstractSegment;
+use Flipbox\Relay\HubSpot\Middleware\JsonRequest as JsonRequestMiddleware;
 
 class Create extends AbstractSegment
 {
@@ -20,6 +21,11 @@ class Create extends AbstractSegment
     protected function defaultSegments(): array
     {
         return [
+            'body' => [
+                'class' => JsonRequestMiddleware::class,
+                'payload' => $this->properties,
+                'logger' => $this->getLogger()
+            ],
             'uri' => [
                 'class' => CompanyCreateMiddleware::class,
                 'properties' => $this->properties,
