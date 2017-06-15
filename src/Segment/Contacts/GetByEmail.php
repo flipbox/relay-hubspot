@@ -29,7 +29,7 @@ class GetByEmail extends AbstractSegment
         return [
             'uri' => [
                 'class' => ContactByEmailMiddleware::class,
-                'id' => $this->email,
+                'email' => $this->email,
                 'logger' => $this->getLogger()
             ],
             'cache' => [
