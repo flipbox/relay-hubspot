@@ -27,11 +27,6 @@ class Remove extends AbstractSegment
     public $emails = [];
 
     /**
-     * @var CacheItemPoolInterface
-     */
-    public $cache;
-
-    /**
      * @return array
      */
     protected function defaultSegments(): array
@@ -45,11 +40,6 @@ class Remove extends AbstractSegment
             'uri' => [
                 'class' => ContactListRemoveMiddleware::class,
                 'id' => $this->id,
-                'logger' => $this->getLogger()
-            ],
-            'cache' => [
-                'class' => CacheMiddleware::class,
-                'pool' => $this->cache,
                 'logger' => $this->getLogger()
             ],
             'client' => [
