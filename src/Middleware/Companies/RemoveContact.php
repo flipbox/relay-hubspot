@@ -5,12 +5,17 @@ namespace Flipbox\Relay\HubSpot\Middleware\Companies;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class UpdateById extends AbstractCompany
+class RemoveContact extends AbstractCompany
 {
     /**
      * @var int
      */
     public $id;
+
+    /**
+     * @var int
+     */
+    public $contactId;
 
     /**
      * @inheritdoc
@@ -22,7 +27,7 @@ class UpdateById extends AbstractCompany
     ) {
         // Prepare request
         $request = $this->prepareUri(
-            $request->withMethod('PUT')
+            $request->withMethod('DELETE')
         );
 
         return $next($request, $response);
@@ -33,6 +38,6 @@ class UpdateById extends AbstractCompany
      */
     protected function getPath(): string
     {
-        return "companies/{$this->id}";
+        return "companies/{$this->id}/contacts/{$this->contactId}";
     }
 }
