@@ -33,6 +33,6 @@ class UpdateById extends AbstractContact
      */
     protected function getPath(): string
     {
-        return "contact/email/{$this->id}/profile";
+        return "contact/vid/{$this->id}/profile";
     }
 }
