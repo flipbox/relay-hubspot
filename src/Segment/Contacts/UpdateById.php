@@ -17,7 +17,7 @@ class UpdateById extends AbstractSegment
     /**
      * @var string
      */
-    public $properties;
+    public $payload;
 
     /**
      * @return array
@@ -27,7 +27,7 @@ class UpdateById extends AbstractSegment
         return [
             'body' => [
                 'class' => JsonRequestMiddleware::class,
-                'payload' => $this->properties,
+                'payload' => $this->payload,
                 'logger' => $this->getLogger()
             ],
             'uri' => [
