@@ -8,11 +8,6 @@ use Psr\Http\Message\ResponseInterface;
 class Create extends AbstractCompany
 {
     /**
-     * @var array
-     */
-    public $properties;
-
-    /**
      * @inheritdoc
      */
     public function __invoke(

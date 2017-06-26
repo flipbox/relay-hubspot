@@ -28,7 +28,6 @@ class Create extends AbstractSegment
             ],
             'uri' => [
                 'class' => ContactCreateMiddleware::class,
-                'properties' => $this->properties,
                 'logger' => $this->getLogger()
             ],
             'client' => [
