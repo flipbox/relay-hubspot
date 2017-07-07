@@ -1,9 +1,13 @@
 # Changelog
-All Notable changes to `relay-hubspot` will be documented in this file
+All Notable changes to `flipboxdigital\relay-hubspot` will be documented in this file
 
-## Unreleased
+## 1.0.0-beta.3 - 2017-7-7
+### Added
+- Contact batch http and segments
+- Company contact add/remove http and segments
+
 ### Fixed
-- incorrect path to get contact by id
+- Incorrect path to get contact by id
 
 ## 1.0.0-beta.1 - 2017-6-2
 ### Added
