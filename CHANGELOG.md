@@ -1,6 +1,10 @@
 # Changelog
 All Notable changes to `flipboxdigital\relay-hubspot` will be documented in this file
 
+## 1.0.0-beta.4 - 2017-7-7
+### Changed
+- Contact List property names to align with http request
+
 ## 1.0.0-beta.3 - 2017-7-7
 ### Added
 - Contact batch http and segments
