@@ -19,7 +19,7 @@ class Remove extends AbstractSegment
     /**
      * @var array
      */
-    public $contactIds = [];
+    public $vids = [];
 
     /**
      * @var array
@@ -55,7 +55,7 @@ class Remove extends AbstractSegment
     protected function assemblePayload(): array
     {
         return [
-            'vids' => array_filter($this->contactIds),
+            'vids' => array_filter($this->vids),
             'emails' => array_filter($this->emails)
         ];
     }
