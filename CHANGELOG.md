@@ -1,7 +1,7 @@
 # Changelog
 All Notable changes to `flipboxdigital\relay-hubspot` will be documented in this file
 
-## Unreleased
+## 1.0.0-beta.5 - 2017-09-01
 ### Added
 - Request logging for enhanced debugging
 
