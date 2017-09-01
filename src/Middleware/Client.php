@@ -52,9 +52,17 @@ class Client extends AbstractMiddleware
     {
 
         try {
-            // todo is there a way to append to an existing guzzle response?
-            $client = new GuzzleHttpClient();
-            $httpResponse = $client->send($request);
+            $this->info(
+                "HUBSPOT API REQUEST - URI: {uri}, METHOD: {method}, PAYLOAD: {payload}",
+                [
+                    'uri' => $request->getUri(),
+                    'method' => $request->getMethod(),
+                    'payload' => $request->getBody()
+                ]
+            );
+
+            $httpResponse = (new GuzzleHttpClient())
+                ->send($request);
         } catch (ClientException $e) {
             $this->error(
                 "API Exception",
