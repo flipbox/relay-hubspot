@@ -16,6 +16,11 @@ class Create extends AbstractSegment
     public $payload;
 
     /**
+     * @var int
+     */
+    public $appId;
+
+    /**
      * @return array
      */
     protected function defaultSegments(): array
@@ -28,6 +33,7 @@ class Create extends AbstractSegment
             ],
             'uri' => [
                 'class' => TimelineEventsCreateMiddleware::class,
+                'appId' => $this->appId,
                 'logger' => $this->getLogger()
             ],
             'client' => [
