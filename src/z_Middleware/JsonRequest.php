@@ -1,22 +1,24 @@
 <?php
 
 /**
- * @copyright  Copyright (c) Flipbox Digital Limited
- * @license    https://github.com/flipbox/relay-salesforce/blob/master/LICENSE.md
- * @link       https://github.com/flipbox/relay-salesforce
+ * REST Middleware
+ *
+ * @package    Force
+ * @author     Flipbox Factory <hello@flipboxfactory.com>
+ * @copyright  2010-2016 Flipbox Digital Limited
+ * @license    https://flipboxfactory.com/software/craft/force/license
+ * @version    Release: 1.3.0
+ * @link       https://github.com/FlipboxFactory/Force
+ * @since      Class available since Release 1.0.0
  */
 
-namespace Flipbox\Relay\HubSpot\Middleware;
+namespace Flipbox\Relay\HubSpot\z_Middleware;
 
 use Flipbox\Http\Stream\Factory as StreamFactory;
 use Flipbox\Relay\Middleware\AbstractMiddleware;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-/**
- * @author Flipbox Factory <hello@flipboxfactory.com>
- * @since 1.0.0
- */
 class JsonRequest extends AbstractMiddleware
 {
     /**
@@ -32,8 +34,6 @@ class JsonRequest extends AbstractMiddleware
         ResponseInterface $response,
         callable $next = null
     ) {
-        parent::__invoke($request, $response, $next);
-
         if ($this->payload !== null) {
             $request = $request->withBody(
                 StreamFactory::create(

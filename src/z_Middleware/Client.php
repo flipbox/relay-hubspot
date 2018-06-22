@@ -1,35 +1,44 @@
 <?php
 
 /**
- * @copyright  Copyright (c) Flipbox Digital Limited
- * @license    https://github.com/flipbox/relay-salesforce/blob/master/LICENSE.md
- * @link       https://github.com/flipbox/relay-salesforce
+ * REST Middleware
+ *
+ * @package    Force
+ * @author     Flipbox Factory <hello@flipboxfactory.com>
+ * @copyright  2010-2016 Flipbox Digital Limited
+ * @license    https://flipboxfactory.com/software/craft/force/license
+ * @version    Release: 1.3.0
+ * @link       https://github.com/FlipboxFactory/Force
+ * @since      Class available since Release 1.0.0
  */
 
-namespace Flipbox\Relay\HubSpot\Middleware;
+namespace Flipbox\Relay\HubSpot\z_Middleware;
 
 use Flipbox\Relay\Middleware\AbstractMiddleware;
 use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Psr7\Response as HttpResponse;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-/**
- * @author Flipbox Factory <hello@flipboxfactory.com>
- * @since 1.0.0
- */
 class Client extends AbstractMiddleware
 {
+
     /**
      * @inheritdoc
      */
     public function __invoke(RequestInterface $request, ResponseInterface $response, callable $next = null)
     {
-        parent::__invoke($request, $response, $next);
-
+        // Prepare request
         $request = $this->prepRequest($request);
+
+        // Call API
         $response = $this->call($request, $response);
-        return $next($request, $response);
+
+        // Onward
+        $response = $next($request, $response);
+
+        return $response;
     }
 
     /**
@@ -38,10 +47,10 @@ class Client extends AbstractMiddleware
      * @param RequestInterface $request
      * @param ResponseInterface $response
      * @return ResponseInterface
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function call(RequestInterface $request, ResponseInterface $response)
     {
+
         try {
             $this->info(
                 "HUBSPOT API REQUEST - URI: {uri}, METHOD: {method}, PAYLOAD: {payload}",
@@ -56,7 +65,7 @@ class Client extends AbstractMiddleware
                 ->send($request);
         } catch (ClientException $e) {
             $this->error(
-                "HUBSPOT API EXCEPTION: {exception}",
+                "API Exception",
                 [
                     'exception' => $e
                 ]
@@ -65,20 +74,7 @@ class Client extends AbstractMiddleware
         }
 
         // Sync responses
-        if ($httpResponse !== null) {
-            $this->info(
-                "HUBSPOT API RESPONSE: {response}",
-                [
-                    'response' => $httpResponse->getBody()
-                ]
-            );
-
-            $httpResponse->getBody()->rewind();
-
-            $response = $this->syncResponse($httpResponse, $response);
-        }
-
-        return $response;
+        return $this->syncResponse($httpResponse, $response);
     }
 
     /**
@@ -92,11 +88,11 @@ class Client extends AbstractMiddleware
     }
 
     /**
-     * @param ResponseInterface $httpResponse
+     * @param HttpResponse $httpResponse
      * @param ResponseInterface $response
      * @return ResponseInterface
      */
-    private function syncResponse(ResponseInterface $httpResponse, ResponseInterface $response)
+    private function syncResponse(HttpResponse $httpResponse, ResponseInterface $response)
     {
         // Add headers
         foreach ($httpResponse->getHeaders() as $name => $value) {
