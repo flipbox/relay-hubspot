@@ -15,6 +15,9 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
+ *
+ * The anatomy of an API Resource Uri is constructed with this class.  This is the breakdown:
+ * {scheme}://{host}/{node}/{version}/{path}
  */
 class Resource extends AbstractMiddleware
 {
@@ -24,7 +27,17 @@ class Resource extends AbstractMiddleware
     public $method = 'GET';
 
     /**
-     * The resource name
+     * The API Scheme
+     */
+    const SCHEME = 'https';
+
+    /**
+     * The API Host
+     */
+    const HOST = 'api.hubapi.com';
+
+    /**
+     * The resource path
      */
     public $resource;
 
@@ -51,28 +64,22 @@ class Resource extends AbstractMiddleware
      */
     protected function prepareUri(RequestInterface $request)
     {
-        $uri = $request->getUri();
+        $uri = $request->getUri()
+            ->withHost(static::HOST)
+            ->withScheme(static::SCHEME);
+
         return $request->withUri(
             $uri->withPath(
-                $this->assembleUri($uri->getPath())
+                $this->getPath()
             )
         );
     }
 
     /**
-     * @param string|null $baseUri
      * @return string
      */
-    protected function assembleUri(string $baseUri = null): string
+    protected function getPath(): string
     {
-        return ($baseUri ? $baseUri . '/' : '') . $this->assemblePath();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function assemblePath(): string
-    {
-        return $this->resource ? $this->resource . '/' : '';
+        return "{$this->resource}";
     }
 }

@@ -34,8 +34,8 @@ class HttpRelayBuilder extends RelayBuilder
             $config
         );
 
-        $this->addAuthorization($authorization, $logger)
-            ->addClient($logger);
+        $this->addClient($logger)
+            ->addAuthorization($authorization, $logger);
     }
     /**
      * @param AuthorizationInterface $authorization
@@ -46,11 +46,11 @@ class HttpRelayBuilder extends RelayBuilder
         AuthorizationInterface $authorization,
         LoggerInterface $logger = null
     ) {
-        return $this->addAfter('token', [
+        return $this->addBefore('token', [
             'class' => AuthorizationMiddleware::class,
             'logger' => $logger ?: $this->getLogger(),
             'authorization' => $authorization
-        ], 'cache');
+        ], 'client');
     }
 
     /**
@@ -62,6 +62,6 @@ class HttpRelayBuilder extends RelayBuilder
         return $this->addAfter('client', [
             'class' => ClientMiddleware::class,
             'logger' => $logger ?: $this->getLogger(),
-        ], 'token');
+        ]);
     }
 }
