@@ -67,8 +67,9 @@ class Client extends AbstractMiddleware
         // Sync responses
         if ($httpResponse !== null) {
             $this->info(
-                "HUBSPOT API RESPONSE: {response}",
+                "HUBSPOT API RESPONSE - CODE: {code}, BODY: {response}",
                 [
+                    'code' => $httpResponse->getStatusCode(),
                     'response' => $httpResponse->getBody()
                 ]
             );
