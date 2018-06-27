@@ -6,7 +6,7 @@
  * @link       https://github.com/flipbox/relay-salesforce
  */
 
-namespace Flipbox\Relay\HubSpot\Builder\Resources\Contact;
+namespace Flipbox\Relay\HubSpot\Builder\Resources\ContactList;
 
 use Flipbox\Relay\HubSpot\AuthorizationInterface;
 use Flipbox\Relay\HubSpot\Builder\HttpRelayBuilder;
@@ -30,7 +30,7 @@ class Update extends HttpRelayBuilder
     /**
      * The resource
      */
-    const RESOURCE = 'contact';
+    const RESOURCE = 'lists';
 
     /**
      * Upsert constructor.
@@ -81,9 +81,9 @@ class Update extends HttpRelayBuilder
     {
         return $this->addBefore('uri', [
             'class' => Resource::class,
-            'method' => 'POST',
+            'method' => 'PUT',
             'node' => self::NODE,
-            'resource' => self::RESOURCE . '/vid/' . $id . '/profile',
+            'resource' => self::RESOURCE . '/' . $id,
             'logger' => $logger ?: $this->getLogger()
         ]);
     }

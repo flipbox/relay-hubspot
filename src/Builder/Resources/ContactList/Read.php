@@ -6,21 +6,20 @@
  * @link       https://github.com/flipbox/relay-salesforce
  */
 
-namespace Flipbox\Relay\HubSpot\Builder\Resources\Contact;
+namespace Flipbox\Relay\HubSpot\Builder\Resources\ContactList;
 
 use Flipbox\Relay\HubSpot\AuthorizationInterface;
 use Flipbox\Relay\HubSpot\Builder\HttpRelayBuilder;
-use Flipbox\Relay\HubSpot\Middleware\JsonRequest as JsonMiddleware;
 use Flipbox\Relay\HubSpot\Middleware\Resources\V1\Resource;
+use Flipbox\Relay\Middleware\SimpleCache as CacheMiddleware;
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
-use Flipbox\Relay\Middleware\SimpleCache as CacheMiddleware;
 
 /**
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
-class Update extends HttpRelayBuilder
+class Read extends HttpRelayBuilder
 {
     /**
      * The node
@@ -30,12 +29,10 @@ class Update extends HttpRelayBuilder
     /**
      * The resource
      */
-    const RESOURCE = 'contact';
+    const RESOURCE = 'lists';
 
     /**
-     * Upsert constructor.
      * @param string $identifier
-     * @param array $payload
      * @param AuthorizationInterface $authorization
      * @param CacheInterface $cache
      * @param LoggerInterface|null $logger
@@ -43,7 +40,6 @@ class Update extends HttpRelayBuilder
      */
     public function __construct(
         string $identifier,
-        array $payload,
         AuthorizationInterface $authorization,
         CacheInterface $cache,
         LoggerInterface $logger = null,
@@ -54,26 +50,11 @@ class Update extends HttpRelayBuilder
         $cacheKey = self::RESOURCE . ':' . $identifier;
 
         $this->addUri($identifier, $logger)
-            ->addPayload($payload, $logger)
             ->addCache($cache, $cacheKey, $logger);
     }
 
     /**
-     * @param array $payload
-     * @param LoggerInterface|null $logger
-     * @return $this
-     */
-    protected function addPayload(array $payload, LoggerInterface $logger = null)
-    {
-        return $this->addAfter('body', [
-            'class' => JsonMiddleware::class,
-            'payload' => $payload,
-            'logger' => $logger ?: $this->getLogger()
-        ], 'uri');
-    }
-
-    /**
-     * @param string $id
+     * @param string|null $id
      * @param LoggerInterface|null $logger
      * @return $this
      */
@@ -81,26 +62,25 @@ class Update extends HttpRelayBuilder
     {
         return $this->addBefore('uri', [
             'class' => Resource::class,
-            'method' => 'POST',
             'node' => self::NODE,
-            'resource' => self::RESOURCE . '/vid/' . $id . '/profile',
+            'resource' => self::RESOURCE . '/' . $id,
             'logger' => $logger ?: $this->getLogger()
         ]);
     }
 
     /**
      * @param CacheInterface $cache
-     * @param string|null $key
+     * @param string $key
      * @param LoggerInterface|null $logger
      * @return $this
      */
-    protected function addCache(CacheInterface $cache, string $key = null, LoggerInterface $logger = null)
+    protected function addCache(CacheInterface $cache, string $key, LoggerInterface $logger = null)
     {
-        return $this->addAfter('cache', [
+        return $this->addBefore('cache', [
             'class' => CacheMiddleware::class,
             'logger' => $logger ?: $this->getLogger(),
             'cache' => $cache,
             'key' => $key
-        ], 'body');
+        ], 'token');
     }
 }

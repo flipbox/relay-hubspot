@@ -6,7 +6,7 @@
  * @link       https://github.com/flipbox/relay-salesforce
  */
 
-namespace Flipbox\Relay\HubSpot\Builder\Resources\Contact;
+namespace Flipbox\Relay\HubSpot\Builder\Resources\ContactList;
 
 use Flipbox\Relay\HubSpot\AuthorizationInterface;
 use Flipbox\Relay\HubSpot\Builder\HttpRelayBuilder;
@@ -14,13 +14,12 @@ use Flipbox\Relay\HubSpot\Middleware\JsonRequest as JsonMiddleware;
 use Flipbox\Relay\HubSpot\Middleware\Resources\V1\Resource;
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
-use Flipbox\Relay\Middleware\SimpleCache as CacheMiddleware;
 
 /**
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
-class Update extends HttpRelayBuilder
+class AddContacts extends HttpRelayBuilder
 {
     /**
      * The node
@@ -30,11 +29,10 @@ class Update extends HttpRelayBuilder
     /**
      * The resource
      */
-    const RESOURCE = 'contact';
+    const RESOURCE = 'lists';
 
     /**
-     * Upsert constructor.
-     * @param string $identifier
+     * @param string $id
      * @param array $payload
      * @param AuthorizationInterface $authorization
      * @param CacheInterface $cache
@@ -42,7 +40,7 @@ class Update extends HttpRelayBuilder
      * @param array $config
      */
     public function __construct(
-        string $identifier,
+        string $id,
         array $payload,
         AuthorizationInterface $authorization,
         CacheInterface $cache,
@@ -51,11 +49,8 @@ class Update extends HttpRelayBuilder
     ) {
         parent::__construct($authorization, $logger, $config);
 
-        $cacheKey = self::RESOURCE . ':' . $identifier;
-
-        $this->addUri($identifier, $logger)
-            ->addPayload($payload, $logger)
-            ->addCache($cache, $cacheKey, $logger);
+        $this->addUri($id, $logger)
+            ->addPayload($payload, $logger);
     }
 
     /**
@@ -83,24 +78,8 @@ class Update extends HttpRelayBuilder
             'class' => Resource::class,
             'method' => 'POST',
             'node' => self::NODE,
-            'resource' => self::RESOURCE . '/vid/' . $id . '/profile',
+            'resource' => self::RESOURCE . '/' . $id . '/add',
             'logger' => $logger ?: $this->getLogger()
         ]);
-    }
-
-    /**
-     * @param CacheInterface $cache
-     * @param string|null $key
-     * @param LoggerInterface|null $logger
-     * @return $this
-     */
-    protected function addCache(CacheInterface $cache, string $key = null, LoggerInterface $logger = null)
-    {
-        return $this->addAfter('cache', [
-            'class' => CacheMiddleware::class,
-            'logger' => $logger ?: $this->getLogger(),
-            'cache' => $cache,
-            'key' => $key
-        ], 'body');
     }
 }
