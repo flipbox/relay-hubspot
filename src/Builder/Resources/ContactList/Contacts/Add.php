@@ -6,7 +6,7 @@
  * @link       https://github.com/flipbox/relay-hubspot
  */
 
-namespace Flipbox\Relay\HubSpot\Builder\Resources\ContactList;
+namespace Flipbox\Relay\HubSpot\Builder\Resources\ContactList\Contacts;
 
 use Flipbox\Relay\HubSpot\AuthorizationInterface;
 use Flipbox\Relay\HubSpot\Builder\HttpRelayBuilder;
@@ -19,7 +19,7 @@ use Psr\SimpleCache\CacheInterface;
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
-class RemoveContacts extends HttpRelayBuilder
+class Add extends HttpRelayBuilder
 {
     /**
      * The node
@@ -78,7 +78,7 @@ class RemoveContacts extends HttpRelayBuilder
             'class' => ResourceV1::class,
             'method' => 'POST',
             'node' => self::NODE,
-            'resource' => self::RESOURCE . '/' . $id . '/remove',
+            'resource' => self::RESOURCE . '/' . $id . '/add',
             'logger' => $logger ?: $this->getLogger()
         ]);
     }

@@ -6,50 +6,47 @@
  * @link       https://github.com/flipbox/relay-hubspot
  */
 
-namespace Flipbox\Relay\HubSpot\Builder\Resources\ContactList;
+namespace Flipbox\Relay\HubSpot\Builder\Resources\Timeline\Event;
 
 use Flipbox\Relay\HubSpot\AuthorizationInterface;
 use Flipbox\Relay\HubSpot\Builder\HttpRelayBuilder;
 use Flipbox\Relay\HubSpot\Middleware\JsonRequest as JsonMiddleware;
 use Flipbox\Relay\HubSpot\Middleware\ResourceV1;
 use Psr\Log\LoggerInterface;
-use Psr\SimpleCache\CacheInterface;
 
 /**
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
-class AddContacts extends HttpRelayBuilder
+class Upsert extends HttpRelayBuilder
 {
     /**
      * The node
      */
-    const NODE = 'contacts';
+    const NODE = 'integrations';
 
     /**
      * The resource
      */
-    const RESOURCE = 'lists';
+    const RESOURCE = 'timeline/event';
 
     /**
-     * @param string $id
+     * @param string $appId
      * @param array $payload
      * @param AuthorizationInterface $authorization
-     * @param CacheInterface $cache
      * @param LoggerInterface|null $logger
      * @param array $config
      */
     public function __construct(
-        string $id,
+        string $appId,
         array $payload,
         AuthorizationInterface $authorization,
-        CacheInterface $cache,
         LoggerInterface $logger = null,
         $config = []
     ) {
         parent::__construct($authorization, $logger, $config);
 
-        $this->addUri($id, $logger)
+        $this->addUri($appId, $logger)
             ->addPayload($payload, $logger);
     }
 
@@ -68,17 +65,17 @@ class AddContacts extends HttpRelayBuilder
     }
 
     /**
-     * @param string $id
+     * @param string $appId
      * @param LoggerInterface|null $logger
      * @return $this
      */
-    protected function addUri(string $id, LoggerInterface $logger = null)
+    protected function addUri(string $appId, LoggerInterface $logger = null)
     {
         return $this->addBefore('uri', [
             'class' => ResourceV1::class,
-            'method' => 'POST',
+            'method' => 'PUT',
             'node' => self::NODE,
-            'resource' => self::RESOURCE . '/' . $id . '/add',
+            'resource' => $appId . '/' . self::RESOURCE,
             'logger' => $logger ?: $this->getLogger()
         ]);
     }
