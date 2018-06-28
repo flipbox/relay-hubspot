@@ -11,6 +11,7 @@ namespace Flipbox\Relay\HubSpot\Builder\Resources\ContactList\Contacts;
 use Flipbox\Relay\HubSpot\AuthorizationInterface;
 use Flipbox\Relay\HubSpot\Builder\HttpRelayBuilder;
 use Flipbox\Relay\HubSpot\Middleware\JsonRequest as JsonMiddleware;
+use Flipbox\Relay\Middleware\ClearSimpleCache as CacheMiddleware;
 use Flipbox\Relay\HubSpot\Middleware\ResourceV1;
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
@@ -49,8 +50,11 @@ class Add extends HttpRelayBuilder
     ) {
         parent::__construct($authorization, $logger, $config);
 
+        $cacheKey = self::RESOURCE . ':' . $id;
+
         $this->addUri($id, $logger)
-            ->addPayload($payload, $logger);
+            ->addPayload($payload, $logger)
+            ->addCache($cache, $cacheKey, $logger);
     }
 
     /**
@@ -81,5 +85,21 @@ class Add extends HttpRelayBuilder
             'resource' => self::RESOURCE . '/' . $id . '/add',
             'logger' => $logger ?: $this->getLogger()
         ]);
+    }
+
+    /**
+     * @param CacheInterface $cache
+     * @param string|null $key
+     * @param LoggerInterface|null $logger
+     * @return $this
+     */
+    protected function addCache(CacheInterface $cache, string $key = null, LoggerInterface $logger = null)
+    {
+        return $this->addAfter('cache', [
+            'class' => CacheMiddleware::class,
+            'logger' => $logger ?: $this->getLogger(),
+            'cache' => $cache,
+            'key' => $key
+        ], 'body');
     }
 }
