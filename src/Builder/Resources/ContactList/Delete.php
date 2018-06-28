@@ -10,7 +10,7 @@ namespace Flipbox\Relay\HubSpot\Builder\Resources\ContactList;
 
 use Flipbox\Relay\HubSpot\AuthorizationInterface;
 use Flipbox\Relay\HubSpot\Builder\HttpRelayBuilder;
-use Flipbox\Relay\HubSpot\Middleware\Resources\ResourceV2;
+use Flipbox\Relay\HubSpot\Middleware\ResourceV2;
 use Flipbox\Relay\Middleware\SimpleCache as CacheMiddleware;
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;

@@ -11,7 +11,7 @@ namespace Flipbox\Relay\HubSpot\Builder\Resources\TimelineEvent;
 use Flipbox\Relay\HubSpot\AuthorizationInterface;
 use Flipbox\Relay\HubSpot\Builder\HttpRelayBuilder;
 use Flipbox\Relay\HubSpot\Middleware\JsonRequest as JsonMiddleware;
-use Flipbox\Relay\HubSpot\Middleware\Resources\ResourceV1;
+use Flipbox\Relay\HubSpot\Middleware\ResourceV1;
 use Psr\Log\LoggerInterface;
 
 class Upsert extends HttpRelayBuilder

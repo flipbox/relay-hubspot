@@ -11,7 +11,7 @@ namespace Flipbox\Relay\HubSpot\Builder\Resources\Company;
 use Flipbox\Relay\HubSpot\AuthorizationInterface;
 use Flipbox\Relay\HubSpot\Builder\HttpRelayBuilder;
 use Flipbox\Relay\HubSpot\Middleware\JsonRequest as JsonMiddleware;
-use Flipbox\Relay\HubSpot\Middleware\Resources\ResourceV2;
+use Flipbox\Relay\HubSpot\Middleware\ResourceV2;
 use Psr\Log\LoggerInterface;
 
 /**
