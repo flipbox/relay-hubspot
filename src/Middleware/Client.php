@@ -67,7 +67,7 @@ class Client extends AbstractMiddleware
 
             // If an exception was thrown, pass the message on via the response
             $contents = $httpResponse->getBody()->getContents();
-            if(empty($contents)) {
+            if (empty($contents)) {
                 $stream = Factory::create(JsonHelper::encode([
                     'status' => 'exception',
                     'message' => $e->getMessage()
