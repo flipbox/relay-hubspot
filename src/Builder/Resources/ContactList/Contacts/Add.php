@@ -11,8 +11,8 @@ namespace Flipbox\Relay\HubSpot\Builder\Resources\ContactList\Contacts;
 use Flipbox\Relay\HubSpot\AuthorizationInterface;
 use Flipbox\Relay\HubSpot\Builder\HttpRelayBuilder;
 use Flipbox\Relay\HubSpot\Middleware\JsonRequest as JsonMiddleware;
-use Flipbox\Relay\Middleware\ClearSimpleCache as CacheMiddleware;
 use Flipbox\Relay\HubSpot\Middleware\ResourceV1;
+use Flipbox\Relay\Middleware\ClearSimpleCache as CacheMiddleware;
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
 
