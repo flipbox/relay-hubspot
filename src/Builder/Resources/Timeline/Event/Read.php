@@ -10,12 +10,10 @@ namespace Flipbox\Relay\HubSpot\Builder\Resources\Timeline\Event;
 
 use Flipbox\Relay\HubSpot\AuthorizationInterface;
 use Flipbox\Relay\HubSpot\Builder\HttpRelayBuilder;
-use Flipbox\Relay\HubSpot\Middleware\JsonRequest as JsonMiddleware;
 use Flipbox\Relay\HubSpot\Middleware\ResourceV1;
+use Flipbox\Relay\Middleware\SimpleCache as CacheMiddleware;
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
-
-use Flipbox\Relay\Middleware\SimpleCache as CacheMiddleware;
 
 /**
  * @author Flipbox Factory <hello@flipboxfactory.com>

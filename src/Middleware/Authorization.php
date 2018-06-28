@@ -8,8 +8,8 @@
 
 namespace Flipbox\Relay\HubSpot\Middleware;
 
-use Flipbox\Relay\Middleware\AbstractMiddleware;
 use Flipbox\Relay\HubSpot\AuthorizationInterface;
+use Flipbox\Relay\Middleware\AbstractMiddleware;
 use Flipbox\Skeleton\Exceptions\InvalidConfigurationException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
