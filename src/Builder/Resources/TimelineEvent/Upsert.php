@@ -75,6 +75,4 @@ class Upsert extends HttpRelayBuilder
             'logger' => $logger ?: $this->getLogger()
         ]);
     }
-
-
 }
