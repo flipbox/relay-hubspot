@@ -12,7 +12,9 @@ use Flipbox\Relay\HubSpot\AuthorizationInterface;
 use Flipbox\Relay\HubSpot\Builder\HttpRelayBuilder;
 use Flipbox\Relay\HubSpot\Middleware\JsonRequest as JsonMiddleware;
 use Flipbox\Relay\HubSpot\Middleware\ResourceV1;
+use Flipbox\Relay\Middleware\ClearSimpleCache as CacheMiddleware;
 use Psr\Log\LoggerInterface;
+use Psr\SimpleCache\CacheInterface;
 
 /**
  * @author Flipbox Factory <hello@flipboxfactory.com>
@@ -32,22 +34,31 @@ class Upsert extends HttpRelayBuilder
 
     /**
      * @param string $appId
+     * @param string $eventTypeId
+     * @param string $id
      * @param array $payload
      * @param AuthorizationInterface $authorization
+     * @param CacheInterface $cache
      * @param LoggerInterface|null $logger
      * @param array $config
      */
     public function __construct(
         string $appId,
+        string $eventTypeId,
+        string $id,
         array $payload,
         AuthorizationInterface $authorization,
+        CacheInterface $cache,
         LoggerInterface $logger = null,
         $config = []
     ) {
         parent::__construct($authorization, $logger, $config);
 
+        $cacheKey = self::RESOURCE . ':' . $appId . ':' . $eventTypeId . ':' . $id;
+
         $this->addUri($appId, $logger)
-            ->addPayload($payload, $logger);
+            ->addPayload($payload, $logger)
+            ->addCache($cache, $cacheKey, $logger);
     }
 
     /**
@@ -78,5 +89,21 @@ class Upsert extends HttpRelayBuilder
             'resource' => $appId . '/' . self::RESOURCE,
             'logger' => $logger ?: $this->getLogger()
         ]);
+    }
+
+    /**
+     * @param CacheInterface $cache
+     * @param string|null $key
+     * @param LoggerInterface|null $logger
+     * @return $this
+     */
+    protected function addCache(CacheInterface $cache, string $key = null, LoggerInterface $logger = null)
+    {
+        return $this->addAfter('cache', [
+            'class' => CacheMiddleware::class,
+            'logger' => $logger ?: $this->getLogger(),
+            'cache' => $cache,
+            'key' => $key
+        ], 'body');
     }
 }
