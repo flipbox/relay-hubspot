@@ -8,7 +8,9 @@
 
 namespace Flipbox\Relay\HubSpot\Middleware;
 
+use Flipbox\Http\Stream\Factory;
 use Flipbox\Relay\Middleware\AbstractMiddleware;
+use Flipbox\Skeleton\Helpers\JsonHelper;
 use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\Exception\ClientException;
 use Psr\Http\Message\RequestInterface;
@@ -62,6 +64,19 @@ class Client extends AbstractMiddleware
                 ]
             );
             $httpResponse = $e->getResponse();
+
+            // If an exception was thrown, pass the message on via the response
+            $contents = $httpResponse->getBody()->getContents();
+            if(empty($contents)) {
+                $stream = Factory::create(JsonHelper::encode([
+                    'status' => 'exception',
+                    'message' => $e->getMessage()
+                ]));
+
+                $httpResponse = $httpResponse->withBody($stream);
+            }
+
+            $httpResponse->getBody()->rewind();
         }
 
         // Sync responses
