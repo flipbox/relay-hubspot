@@ -10,7 +10,7 @@ namespace Flipbox\Relay\HubSpot\Builder\Resources\Contact;
 
 use Flipbox\Relay\HubSpot\AuthorizationInterface;
 use Flipbox\Relay\HubSpot\Builder\HttpRelayBuilder;
-use Flipbox\Relay\HubSpot\Middleware\ResourceV2;
+use Flipbox\Relay\HubSpot\Middleware\ResourceV1;
 use Flipbox\Relay\Middleware\SimpleCache as CacheMiddleware;
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
@@ -61,7 +61,7 @@ class Delete extends HttpRelayBuilder
     protected function addUri(string $id, LoggerInterface $logger = null)
     {
         return $this->addBefore('uri', [
-            'class' => ResourceV2::class,
+            'class' => ResourceV1::class,
             'method' => 'DELETE',
             'node' => self::NODE,
             'resource' => self::RESOURCE . '/vid/' . $id,
