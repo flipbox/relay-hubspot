@@ -2,15 +2,15 @@
 
 /**
  * @copyright  Copyright (c) Flipbox Digital Limited
- * @license    https://github.com/flipbox/relay-salesforce/blob/master/LICENSE.md
- * @link       https://github.com/flipbox/relay-salesforce
+ * @license    https://github.com/flipbox/relay-hubspot/blob/master/LICENSE
+ * @link       https://github.com/flipbox/relay-hubspot
  */
 
 namespace Flipbox\Relay\HubSpot\Builder\Resources\Contact;
 
 use Flipbox\Relay\HubSpot\AuthorizationInterface;
 use Flipbox\Relay\HubSpot\Builder\HttpRelayBuilder;
-use Flipbox\Relay\HubSpot\Middleware\Resources\V1\Resource;
+use Flipbox\Relay\HubSpot\Middleware\Resources\ResourceV1;
 use Flipbox\Relay\Middleware\SimpleCache as CacheMiddleware;
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
@@ -62,7 +62,7 @@ class ReadById extends HttpRelayBuilder
     protected function addUri(string $id, LoggerInterface $logger = null)
     {
         return $this->addBefore('uri', [
-            'class' => Resource::class,
+            'class' => ResourceV1::class,
             'node' => self::NODE,
             'resource' => self::RESOURCE . '/vid/' . $id . '/profile',
             'logger' => $logger ?: $this->getLogger()

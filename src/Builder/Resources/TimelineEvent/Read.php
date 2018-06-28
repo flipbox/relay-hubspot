@@ -2,8 +2,8 @@
 
 /**
  * @copyright  Copyright (c) Flipbox Digital Limited
- * @license    https://github.com/flipbox/relay-salesforce/blob/master/LICENSE.md
- * @link       https://github.com/flipbox/relay-salesforce
+ * @license    https://github.com/flipbox/relay-hubspot/blob/master/LICENSE
+ * @link       https://github.com/flipbox/relay-hubspot
  */
 
 namespace Flipbox\Relay\HubSpot\Builder\Resources\TimelineEvent;
@@ -11,7 +11,7 @@ namespace Flipbox\Relay\HubSpot\Builder\Resources\TimelineEvent;
 use Flipbox\Relay\HubSpot\AuthorizationInterface;
 use Flipbox\Relay\HubSpot\Builder\HttpRelayBuilder;
 use Flipbox\Relay\HubSpot\Middleware\JsonRequest as JsonMiddleware;
-use Flipbox\Relay\HubSpot\Middleware\Resources\V1\Resource;
+use Flipbox\Relay\HubSpot\Middleware\Resources\ResourceV1;
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
 
@@ -81,7 +81,7 @@ class Read extends HttpRelayBuilder
     protected function addUri(string $appId, string $eventTypeId, string $id, LoggerInterface $logger = null)
     {
         return $this->addBefore('uri', [
-            'class' => Resource::class,
+            'class' => ResourceV1::class,
             'node' => self::NODE,
             'resource' => $appId . '/' . self::RESOURCE . '/' . $eventTypeId . '/' . $id,
             'logger' => $logger ?: $this->getLogger()

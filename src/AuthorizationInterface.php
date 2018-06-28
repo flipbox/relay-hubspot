@@ -2,8 +2,8 @@
 
 /**
  * @copyright  Copyright (c) Flipbox Digital Limited
- * @license    https://github.com/flipbox/relay-salesforce/blob/master/LICENSE.md
- * @link       https://github.com/flipbox/relay-salesforce
+ * @license    https://github.com/flipbox/relay-hubspot/blob/master/LICENSE
+ * @link       https://github.com/flipbox/relay-hubspot
  */
 
 namespace Flipbox\Relay\HubSpot;
