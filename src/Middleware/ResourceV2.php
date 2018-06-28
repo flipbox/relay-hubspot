@@ -6,7 +6,7 @@
  * @link       https://github.com/flipbox/relay-hubspot
  */
 
-namespace Flipbox\Relay\HubSpot\Middleware\Resources;
+namespace Flipbox\Relay\HubSpot\Middleware;
 
 /**
  * @author Flipbox Factory <hello@flipboxfactory.com>
