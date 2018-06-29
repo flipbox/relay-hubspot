@@ -50,7 +50,7 @@ class Remove extends HttpRelayBuilder
     ) {
         parent::__construct($authorization, $logger, $config);
 
-        $cacheKey = self::RESOURCE . ':' . $companyId . ':contacts'
+        $cacheKey = self::RESOURCE . ':' . $companyId . ':contacts';
 
         $this->addUri($companyId, $contactId, $logger)
             ->addCache($cache, $cacheKey, $logger);
