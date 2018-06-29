@@ -37,6 +37,7 @@ class HttpRelayBuilder extends RelayBuilder
         $this->addClient($logger)
             ->addAuthorization($authorization, $logger);
     }
+
     /**
      * @param AuthorizationInterface $authorization
      * @param LoggerInterface|null $logger

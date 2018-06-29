@@ -6,12 +6,13 @@
  * @link       https://github.com/flipbox/relay-hubspot
  */
 
-namespace Flipbox\Relay\HubSpot\Builder\Resources\ContactList;
+namespace Flipbox\Relay\HubSpot\Builder\Resources\Timeline\Event;
 
 use Flipbox\Relay\HubSpot\AuthorizationInterface;
 use Flipbox\Relay\HubSpot\Builder\HttpRelayBuilder;
 use Flipbox\Relay\HubSpot\Middleware\JsonRequest as JsonMiddleware;
 use Flipbox\Relay\HubSpot\Middleware\ResourceV1;
+use Flipbox\Relay\Middleware\ClearSimpleCache as CacheMiddleware;
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
 
@@ -19,19 +20,21 @@ use Psr\SimpleCache\CacheInterface;
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
-class RemoveContacts extends HttpRelayBuilder
+class Upsert extends HttpRelayBuilder
 {
     /**
      * The node
      */
-    const NODE = 'contacts';
+    const NODE = 'integrations';
 
     /**
      * The resource
      */
-    const RESOURCE = 'lists';
+    const RESOURCE = 'timeline/event';
 
     /**
+     * @param string $appId
+     * @param string $eventTypeId
      * @param string $id
      * @param array $payload
      * @param AuthorizationInterface $authorization
@@ -40,6 +43,8 @@ class RemoveContacts extends HttpRelayBuilder
      * @param array $config
      */
     public function __construct(
+        string $appId,
+        string $eventTypeId,
         string $id,
         array $payload,
         AuthorizationInterface $authorization,
@@ -49,8 +54,11 @@ class RemoveContacts extends HttpRelayBuilder
     ) {
         parent::__construct($authorization, $logger, $config);
 
-        $this->addUri($id, $logger)
-            ->addPayload($payload, $logger);
+        $cacheKey = self::RESOURCE . ':' . $appId . ':' . $eventTypeId . ':' . $id;
+
+        $this->addUri($appId, $logger)
+            ->addPayload($payload, $logger)
+            ->addCache($cache, $cacheKey, $logger);
     }
 
     /**
@@ -68,18 +76,34 @@ class RemoveContacts extends HttpRelayBuilder
     }
 
     /**
-     * @param string $id
+     * @param string $appId
      * @param LoggerInterface|null $logger
      * @return $this
      */
-    protected function addUri(string $id, LoggerInterface $logger = null)
+    protected function addUri(string $appId, LoggerInterface $logger = null)
     {
         return $this->addBefore('uri', [
             'class' => ResourceV1::class,
-            'method' => 'POST',
+            'method' => 'PUT',
             'node' => self::NODE,
-            'resource' => self::RESOURCE . '/' . $id . '/remove',
+            'resource' => $appId . '/' . self::RESOURCE,
             'logger' => $logger ?: $this->getLogger()
         ]);
+    }
+
+    /**
+     * @param CacheInterface $cache
+     * @param string|null $key
+     * @param LoggerInterface|null $logger
+     * @return $this
+     */
+    protected function addCache(CacheInterface $cache, string $key = null, LoggerInterface $logger = null)
+    {
+        return $this->addAfter('cache', [
+            'class' => CacheMiddleware::class,
+            'logger' => $logger ?: $this->getLogger(),
+            'cache' => $cache,
+            'key' => $key
+        ], 'body');
     }
 }

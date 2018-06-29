@@ -1,11 +1,9 @@
 {
   "name": "flipboxdigital/relay-hubspot",
   "description": "Relay",
-  "version": "1.0.0-beta.5",
+  "version": "1.0.0",
   "keywords": [
-    "relay",
     "flipbox",
-    "psr-7",
     "hubspot"
   ],
   "license": "MIT",
@@ -32,14 +30,6 @@
   "autoload-dev": {
     "psr-4": {
       "Flipbox\\Relay\\HubSpot\\Tests\\": "tests/src/"
-    }
-  },
-  "config": {
-    "optimize-autoloader": true
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-master": "1.0.x-dev"
     }
   },
   "repositories": [

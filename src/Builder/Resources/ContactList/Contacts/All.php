@@ -6,41 +6,39 @@
  * @link       https://github.com/flipbox/relay-hubspot
  */
 
-namespace Flipbox\Relay\HubSpot\Builder\Resources\TimelineEvent;
+namespace Flipbox\Relay\HubSpot\Builder\Resources\ContactList\Contacts;
 
 use Flipbox\Relay\HubSpot\AuthorizationInterface;
 use Flipbox\Relay\HubSpot\Builder\HttpRelayBuilder;
-use Flipbox\Relay\HubSpot\Middleware\JsonRequest as JsonMiddleware;
 use Flipbox\Relay\HubSpot\Middleware\ResourceV1;
+use Flipbox\Relay\Middleware\SimpleCache as CacheMiddleware;
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
 
-use Flipbox\Relay\Middleware\SimpleCache as CacheMiddleware;
-
-class Read extends HttpRelayBuilder
+/**
+ * @author Flipbox Factory <hello@flipboxfactory.com>
+ * @since 1.0.0
+ */
+class All extends HttpRelayBuilder
 {
     /**
      * The node
      */
-    const NODE = 'integrations';
+    const NODE = 'contacts';
 
     /**
      * The resource
      */
-    const RESOURCE = 'timeline/event';
+    const RESOURCE = 'lists';
 
     /**
-     * @param string $appId
-     * @param string $eventTypeId
      * @param string $id
-     * @param AuthorizationInterface $authorization
      * @param CacheInterface $cache
+     * @param AuthorizationInterface $authorization
      * @param LoggerInterface|null $logger
      * @param array $config
      */
     public function __construct(
-        string $appId,
-        string $eventTypeId,
         string $id,
         AuthorizationInterface $authorization,
         CacheInterface $cache,
@@ -49,9 +47,9 @@ class Read extends HttpRelayBuilder
     ) {
         parent::__construct($authorization, $logger, $config);
 
-        $cacheKey = self::RESOURCE . ':' . $appId . ':' . $eventTypeId . ':' . $id;
+        $cacheKey = self::RESOURCE . ':' . $id;
 
-        $this->addUri($appId, $eventTypeId, $id, $logger)
+        $this->addUri($id, $logger)
             ->addCache($cache, $cacheKey, $logger);
     }
 
@@ -72,18 +70,16 @@ class Read extends HttpRelayBuilder
     }
 
     /**
-     * @param string $appId
-     * @param string $eventTypeId
      * @param string $id
      * @param LoggerInterface|null $logger
      * @return $this
      */
-    protected function addUri(string $appId, string $eventTypeId, string $id, LoggerInterface $logger = null)
+    protected function addUri(string $id, LoggerInterface $logger = null)
     {
         return $this->addBefore('uri', [
             'class' => ResourceV1::class,
             'node' => self::NODE,
-            'resource' => $appId . '/' . self::RESOURCE . '/' . $eventTypeId . '/' . $id,
+            'resource' => self::RESOURCE . '/' . $id . 'contacts/all',
             'logger' => $logger ?: $this->getLogger()
         ]);
     }
