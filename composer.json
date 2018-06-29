@@ -1,7 +1,7 @@
 {
   "name": "flipboxdigital/relay-hubspot",
-  "description": "Relay",
-  "version": "1.0.0",
+  "description": "HubSpot RESTful Middleware ",
+  "version": "1.0.1",
   "keywords": [
     "flipbox",
     "hubspot"
