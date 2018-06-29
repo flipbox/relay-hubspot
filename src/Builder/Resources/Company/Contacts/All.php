@@ -32,14 +32,14 @@ class All extends HttpRelayBuilder
     const RESOURCE = 'companies';
 
     /**
-     * @param string $id
+     * @param string $companyId
      * @param CacheInterface $cache
      * @param AuthorizationInterface $authorization
      * @param LoggerInterface|null $logger
      * @param array $config
      */
     public function __construct(
-        string $id,
+        string $companyId,
         AuthorizationInterface $authorization,
         CacheInterface $cache,
         LoggerInterface $logger = null,
@@ -47,9 +47,9 @@ class All extends HttpRelayBuilder
     ) {
         parent::__construct($authorization, $logger, $config);
 
-        $cacheKey = self::RESOURCE . ':' . $id;
+        $cacheKey = self::RESOURCE . ':' . $companyId . ':contacts';
 
-        $this->addUri($id, $logger)
+        $this->addUri($companyId, $logger)
             ->addCache($cache, $cacheKey, $logger);
     }
 
