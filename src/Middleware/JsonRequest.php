@@ -26,6 +26,7 @@ class JsonRequest extends AbstractMiddleware
 
     /**
      * @inheritdoc
+     * @throws \Flipbox\Http\Stream\Exceptions\InvalidStreamException
      */
     public function __invoke(
         RequestInterface $request,

@@ -12,7 +12,7 @@ namespace Flipbox\Relay\HubSpot\Middleware;
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
-class ResourceV2 extends \Flipbox\Relay\HubSpot\Middleware\Resource
+class ResourceV2 extends Resource
 {
     /**
      * The API Version

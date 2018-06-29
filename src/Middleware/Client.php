@@ -24,6 +24,8 @@ class Client extends AbstractMiddleware
 {
     /**
      * @inheritdoc
+     * @throws \Flipbox\Http\Stream\Exceptions\InvalidStreamException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function __invoke(RequestInterface $request, ResponseInterface $response, callable $next = null)
     {
@@ -40,6 +42,7 @@ class Client extends AbstractMiddleware
      * @param RequestInterface $request
      * @param ResponseInterface $response
      * @return ResponseInterface
+     * @throws \Flipbox\Http\Stream\Exceptions\InvalidStreamException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function call(RequestInterface $request, ResponseInterface $response)
