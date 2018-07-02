@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+### Added
+- Daily limit resource routine.
+
 ## 1.0.1 - 2018-06-29
 ### Added
 - Index/Add/Remove company contact routines.
