@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+### Added
+- Contact batch routine
+
 ## 1.0.2 - 2018-07-02
 ### Added
 - Daily limit resource routine.
