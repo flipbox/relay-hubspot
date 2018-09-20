@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.4 - 2018-09-20
+### Added
+- Contact list batch routine
+
 ## 1.0.3 - 2018-07-05
 ### Added
 - Contact batch routine

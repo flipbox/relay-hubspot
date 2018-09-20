@@ -16,7 +16,7 @@ use Psr\Log\LoggerInterface;
 
 /**
  * @author Flipbox Factory <hello@flipboxfactory.com>
- * @since 1.0.3
+ * @since 1.0.4
  */
 class Batch extends HttpRelayBuilder
 {
