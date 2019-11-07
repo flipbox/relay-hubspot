@@ -47,8 +47,7 @@ class ListByDomain extends HttpRelayBuilder
         CacheInterface $cache,
         LoggerInterface $logger = null,
         $config = []
-    )
-    {
+    ) {
         parent::__construct($authorization, $logger, $config);
 
         $cacheKey = self::RESOURCE . ':' . $domain . ':companies:' . md5(serialize($payload));
