@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.1.0 - 2019-10-07
 ### Added
 - List Companies by domain routine
 
