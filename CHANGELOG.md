@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0 - 2019-10-07
+### Added
+- List Companies by domain routine
+
 ## 1.0.5 - 2019-08-19
 ### Added
 - Read contact by token (UTK) batch routine
