@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+### Added
+- List Companies by domain routine
+
 ## 1.0.4 - 2018-09-20
 ### Added
 - Contact list batch routine
