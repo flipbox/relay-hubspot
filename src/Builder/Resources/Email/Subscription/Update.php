@@ -80,6 +80,7 @@ class Update extends HttpRelayBuilder
     {
         return $this->addBefore('uri', [
             'class' => ResourceV1::class,
+            'method' => 'PUT',
             'node' => self::NODE,
             'resource' => self::RESOURCE . '/' . $email,
             'logger' => $logger ?: $this->getLogger()
