@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0 - 2019-11-13
+### Added
+- Email Subscription routines
+
 ## 1.1.0 - 2019-10-07
 ### Added
 - List Companies by domain routine
