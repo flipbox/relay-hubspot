@@ -55,8 +55,7 @@ class Resource extends AbstractMiddleware
         RequestInterface $request,
         ResponseInterface $response,
         callable $next = null
-    )
-    {
+    ) {
         parent::__invoke($request, $response, $next);
 
         $request = $this->prepareUri(
