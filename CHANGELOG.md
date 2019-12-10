@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0 - 2019-12-10
+### Added
+- Blog Post retrieve all routine
+
 ## 1.2.0 - 2019-11-13
 ### Added
 - Email Subscription routines
