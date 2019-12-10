@@ -42,6 +42,13 @@ class Resource extends AbstractMiddleware
     public $resource;
 
     /**
+     * Optional Query params
+     *
+     * @var array
+     */
+    public $params = [];
+
+    /**
      * @inheritdoc
      */
     public function __invoke(
@@ -67,6 +74,12 @@ class Resource extends AbstractMiddleware
         $uri = $request->getUri()
             ->withHost(static::HOST)
             ->withScheme(static::SCHEME);
+
+        if (!empty($this->params)) {
+            $uri = $uri->withQuery(
+                http_build_query($this->params, null, '&', PHP_QUERY_RFC3986)
+            );
+        }
 
         return $request->withUri(
             $uri->withPath(
