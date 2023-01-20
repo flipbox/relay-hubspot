@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0 - 2023-01-20
+### Changed
+- Updated dependencies: `flipboxdigital/relay-simplecache` for php 8 compatibility
+
 ## 1.3.0 - 2019-12-10
 ### Added
 - Blog Post retrieve all routine
